@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_URL from '../config.js';
 
 function Create({ onAdd }) {
     const [task, setTask] = useState('');
@@ -7,7 +8,7 @@ function Create({ onAdd }) {
     const handleAdd = () => {
         if (!task.trim()) return; // Prevent empty tasks
         
-        axios.post('http://localhost:3001/add', { task: task })
+        axios.post(`${API_URL}/add`, { task: task })
             .then(res => {
                 if (onAdd) {
                     onAdd(res.data); // Update parent state

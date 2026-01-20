@@ -1,13 +1,29 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require ('cors')
 const TodoModel = require('./Models/Todo.js')
 
 const app = express()
-app.use(cors())
+
+// CORS configuration
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? process.env.FRONTEND_URL 
+    : '*',
+  credentials: true
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+// MongoDB connection
+// MongoDB connection
+const MONGODB_URI = process.env.MONGODB_URI
+console.log('MONGODB_URI:', MONGODB_URI) // Add this line to debug
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch(err => console.error('MongoDB connection error:', err))
 
 app.put('/update/:id', (req, res) => {
     const {id} = req.params;
@@ -41,6 +57,8 @@ app.post('/add', (req, res) => {
     .catch(err => res.json(err))
 })
 
-app.listen(3001, () => {
-    console.log('Server is running on port 3001')
+const PORT = process.env.PORT || 3001
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`)
 })
