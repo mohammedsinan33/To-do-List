@@ -78,7 +78,26 @@ cd back-end
 npm install
 ```
 
-Start MongoDB (if not running):
+**Create `.env` file** in the `back-end` folder:
+```bash
+# Copy example file
+cp .env.example .env
+```
+
+Edit `back-end/.env` with your values:
+```env
+PORT=3001
+MONGODB_URI=mongodb://127.0.0.1:27017/test
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5173
+```
+
+**For MongoDB Atlas (Production):**
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/todolist
+```
+
+Start MongoDB (if using local):
 ```bash
 # Windows
 mongod
@@ -98,6 +117,22 @@ Open a new terminal:
 ```bash
 cd front-end
 npm install
+```
+
+**Create `.env` file** in the `front-end` folder:
+```bash
+# Copy example file
+cp .env.example .env
+```
+
+Edit `front-end/.env`:
+```env
+VITE_API_URL=http://localhost:3001
+```
+
+**For production (deployed backend):**
+```env
+VITE_API_URL=https://your-backend-url.onrender.com
 ```
 
 Start the development server:
@@ -143,15 +178,28 @@ The app will run on **http://localhost:5173**
 
 ## 🔧 Configuration
 
-### Backend Configuration
-Edit `back-end/index.js` to change:
-- MongoDB connection string (default: `mongodb://127.0.0.1:27017/test`)
-- Server port (default: `3001`)
+### Backend Environment Variables
+Create `back-end/.env` file:
 
-### Frontend Configuration
-Edit frontend files to change:
-- API base URL (currently: `http://localhost:3001`)
+| Variable | Description | Example |
+|----------|-------------|----------|
+| `PORT` | Backend server port | `3001` |
+| `MONGODB_URI` | MongoDB connection string | `mongodb://127.0.0.1:27017/test` or Atlas URI |
+| `NODE_ENV` | Environment mode | `development` or `production` |
+| `FRONTEND_URL` | Frontend URL for CORS | `http://localhost:5173` or Vercel URL |
+
+**⚠️ Important:** Never commit `.env` files to Git. They're already in `.gitignore`.
+
+### Frontend Environment Variables
+Create `front-end/.env` file:
+
+| Variable | Description | Example |
+|----------|-------------|----------|
+| `VITE_API_URL` | Backend API URL | `http://localhost:3001` or Render URL |
+
+### Other Configuration
 - Styles in `App.css` and `index.css`
+- API routes in `back-end/index.js`
 
 ## 📦 Build for Production
 

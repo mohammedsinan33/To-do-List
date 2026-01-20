@@ -48,11 +48,54 @@ src/
 # Install dependencies
 npm install
 
+# Create .env file from example
+cp .env.example .env
+
+# Edit .env with your backend URL
+# (See Environment Variables section below)
+
 # Start development server
 npm run dev
 ```
 
 The app will run on **http://localhost:5173**
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the `front-end` folder:
+
+### Required Variables
+
+```env
+VITE_API_URL=http://localhost:3001
+```
+
+### Variable Descriptions
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `VITE_API_URL` | Backend API base URL | `http://localhost:3001` | No* |
+
+*Falls back to `http://localhost:3001` if not set
+
+### Example Configurations
+
+**Local Development:**
+```env
+VITE_API_URL=http://localhost:3001
+```
+
+**Production (Deployed Backend):**
+```env
+VITE_API_URL=https://todolist-api.onrender.com
+```
+
+**⚠️ Important Notes:**
+- Vite only reads environment variables at build/start time
+- After changing `.env`, restart the dev server (`npm run dev`)
+- Environment variables must start with `VITE_` to be exposed to the browser
+- Never commit `.env` files to version control
+- For deployment (Vercel), set environment variables in the dashboard
 
 ### Build for Production
 

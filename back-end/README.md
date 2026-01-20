@@ -35,11 +35,63 @@ back-end/
 # Install dependencies
 npm install
 
+# Create .env file from example
+cp .env.example .env
+
+# Edit .env with your configuration
+# (See Environment Variables section below)
+
 # Start development server with auto-reload
 npm start
 ```
 
 The server will run on **http://localhost:3001**
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the `back-end` folder with these variables:
+
+### Required Variables
+
+```env
+PORT=3001
+MONGODB_URI=mongodb://127.0.0.1:27017/test
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5173
+```
+
+### Variable Descriptions
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `PORT` | Port number for the server | `3001` | No |
+| `MONGODB_URI` | MongoDB connection string | `mongodb://127.0.0.1:27017/test` | Yes |
+| `NODE_ENV` | Environment mode (`development` or `production`) | - | Yes |
+| `FRONTEND_URL` | Frontend URL for CORS (used only in production) | - | In production |
+
+### Example Configurations
+
+**Local Development:**
+```env
+PORT=3001
+MONGODB_URI=mongodb://127.0.0.1:27017/test
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5173
+```
+
+**Production (MongoDB Atlas):**
+```env
+PORT=3001
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/todolist?retryWrites=true&w=majority
+NODE_ENV=production
+FRONTEND_URL=https://your-app.vercel.app
+```
+
+**⚠️ Security Note:**
+- Never commit `.env` files to version control
+- Use strong passwords for MongoDB
+- Rotate credentials if exposed
+- Use environment variables in deployment platforms (Render, Heroku, etc.)
 
 ## 📡 API Endpoints
 
